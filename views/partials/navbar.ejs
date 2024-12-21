@@ -14,7 +14,11 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Manu
+            <% if (typeof fullName !== 'undefined' && fullName) { %>
+              <%= fullName %>
+            <% } else { %>
+              Guest  
+            <% } %>
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Logout</a></li>

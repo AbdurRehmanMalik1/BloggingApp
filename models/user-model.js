@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const crypto = require('crypto');
- 
+
 const userSchema = new mongoose.Schema({
     fullName: {
         type: String,
@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
     },
     salt:{
         type:String,
-        required:true,
+        required:false,
     },
     role:{
         type:String,
@@ -40,10 +40,15 @@ userSchema.pre('save', function (next) {
     }
     next();
 });
+userSchema.methods.verifyUser = function (password) {
+    const hashedPassword = crypto
+        .createHash('sha256')
+        .update(password + this.salt)  
+        .digest('hex');
 
-const user = mongoose.model("user",userSchema);
+    return this.password === hashedPassword;  
+};
 
+const User = mongoose.model("user",userSchema);
 
-
-
-module.exports = user;
+module.exports = User;
