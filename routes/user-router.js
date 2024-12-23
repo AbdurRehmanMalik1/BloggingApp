@@ -1,9 +1,8 @@
 const express = require("express");
 const User = require("../models/user-model");
+const {createTokenForUser} = require("../services/auth-service");
 
 const router = express.Router();
-
-
 
 router.get('/login', (req, res) => {
     return res.render('login');
@@ -24,7 +23,9 @@ router.post('/login', async (req, res) => {
         console.log(`Is valid : ${isValid}`);
         return res.render('login', { error: "Invalid Password" });
     }
-    return res.render('home', {fullName: user.fullName});
+    const token = createTokenForUser(user);
+    res.cookie('token', token);
+    return res.redirect('../');
 });
 
 
@@ -33,7 +34,7 @@ router.get('/signup', (req, res) => {
 });
 router.post('/signup', async (req, res) => {
     const { email, password,fullName } = req.body;
-    console.log(`Email: ${email},Fulle Name: ${fullName} ,Password: ${password}`)
+    console.log(`Email: ${email},Full Name: ${fullName} ,Password: ${password}`)
     const validationError = checkSignUpFields(email, fullName, password);
     if (validationError) {
         console.log(`Error had occured: ${validationError}`);
@@ -47,7 +48,9 @@ router.post('/signup', async (req, res) => {
             return res.render('signup', { error: "Failed To Signup" });
         }
         console.log("Created User");
-        return res.render('home', { fullName });
+        const token = createTokenForUser(user);
+        res.cookie('token', token);
+        return res.redirect('../');
     } catch (error) {
         console.log(`Error had occured: ${error}`);
         return res.render('signup', { error: "An error occurred, please try again." });

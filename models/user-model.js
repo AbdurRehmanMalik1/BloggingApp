@@ -24,6 +24,11 @@ const userSchema = new mongoose.Schema({
         enum:["ADMIN","USER"],
         required:true,
         default:"USER"
+    },
+    profileImageUrl: {
+        type:String,
+        required:false,
+        default: "images/defaultProfile.png"
     }
 });
 
