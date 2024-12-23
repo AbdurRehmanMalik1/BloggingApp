@@ -2,7 +2,10 @@ require('dotenv').config();
 const path = require("path");
 const express = require("express");
 const connectMongoDB = require("./mongo_connection");
+
 const userRouter = require("./routes/user-router");
+const blogRouter = require("./routes/blog-router");
+
 const {checkAuthentication,restrictTo} = require('./middleware/auth-middleware');
 const cookieParser = require('cookie-parser');
 
@@ -23,11 +26,12 @@ app.use(express.urlencoded({extended:false}));
 app.use(checkAuthentication);
 
 app.use('/user',userRouter);
+app.use('/blog',restrictTo(['USER','ADMIN']),blogRouter);
 app.get('/admin', restrictTo(['ADMIN']), (req, res) => {
     res.send('<p>cooool</p>');
 });
 
-app.use('/', (req, res) => {
+app.get('/', (req, res) => {
     const fullName = req.user?.fullName || 'Guest'; 
     console.log(`This user's full name = ${fullName}`);
     

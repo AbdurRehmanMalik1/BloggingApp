@@ -14,14 +14,14 @@ router.post('/login', async (req, res) => {
     const user = await User.findOne({ email });
     
     if (!user) {
-        return res.render('login', { error: "Invalid User" });
+        return res.render('login', { error: "Invalid Email or Password" });
     }
     
     const isValid = user.verifyUser(password);
     
     if (!isValid) {
-        console.log(`Is valid : ${isValid}`);
-        return res.render('login', { error: "Invalid Password" });
+        //console.log(`Is valid : ${isValid}`);
+        return res.render('login', { error: "Invalid Email or Password" });
     }
     const token = createTokenForUser(user);
     res.cookie('token', token);
@@ -32,12 +32,14 @@ router.post('/login', async (req, res) => {
 router.get('/signup', (req, res) => {
     return res.render('signup');
 });
+
+
 router.post('/signup', async (req, res) => {
     const { email, password,fullName } = req.body;
-    console.log(`Email: ${email},Full Name: ${fullName} ,Password: ${password}`)
+    //console.log(`Email: ${email},Full Name: ${fullName} ,Password: ${password}`)
     const validationError = checkSignUpFields(email, fullName, password);
     if (validationError) {
-        console.log(`Error had occured: ${validationError}`);
+        //console.log(`Error had occured: ${validationError}`);
         return res.render("signup", { error: validationError });
     }
 
@@ -47,14 +49,19 @@ router.post('/signup', async (req, res) => {
         if (!user) {
             return res.render('signup', { error: "Failed To Signup" });
         }
-        console.log("Created User");
+        //console.log("Created User");
         const token = createTokenForUser(user);
         res.cookie('token', token);
         return res.redirect('../');
     } catch (error) {
-        console.log(`Error had occured: ${error}`);
+        //console.log(`Error had occured: ${error}`);
         return res.render('signup', { error: "An error occurred, please try again." });
     }
+});
+
+router.post('/logout', (req, res) => {
+    res.clearCookie('token');  
+    return res.redirect('/'); 
 });
 
 function checkSignUpFields(email, fullName, password) {

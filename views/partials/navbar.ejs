@@ -1,4 +1,7 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <% 
+    const displayName = (typeof fullName !== 'undefined' && fullName) ? fullName : 'Guest'; 
+  %>
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -7,21 +10,35 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Blogs</a>
         </li>
+        <% if (displayName!=='Guest') { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/blog/add">Add Blog</a>
+          </li>
+        <% } %>
+        <li></li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <% if (typeof fullName !== 'undefined' && fullName) { %>
-              <%= fullName %>
-            <% } else { %>
-              Guest  
-            <% } %>
+            
+            <%= displayName %>
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Logout</a></li>
+            <% if (displayName !== 'Guest') { %>
+                <li>
+                  <form action="/user/logout" method="POST" style="display: inline;">
+                    <button type="submit" class="dropdown-item">
+                        Logout
+                    </button>
+                  </form>
+                </li>
+            <% } else { %>
+                <li><a class="dropdown-item" href="/user/login">Login</a></li>
+                <li><a class="dropdown-item" href="/user/signup">Sign Up</a></li>
+            <% } %>
           </ul>
         </li>
       </ul>
