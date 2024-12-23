@@ -14,6 +14,9 @@ async function checkAuthentication(req, res, next) {
     });
     req.user = returnedUser;
     //console.log(req.user);
+    if (req.originalUrl === '/') {
+        return res.render('home', { fullName: returnedUser.fullName || 'Guest' });
+    }
     next();
 }
 

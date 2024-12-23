@@ -1,5 +1,5 @@
 const JWT = require("jsonwebtoken");
-const secret = "bloggingApp93@3123><P";
+const JWT_SECRET = process.env.JWT_SECRET;
 
 function createTokenForUser(user){
     const payload = {
@@ -12,12 +12,12 @@ function createTokenForUser(user){
         expiresIn: "1h", // Token will expire in 1 hour
     };
 
-    return JWT.sign(payload,secret,options);
+    return JWT.sign(payload,JWT_SECRET,options);
 }
 
 function getUserFromToken(token){
     try {
-        return JWT.verify(token, secret);
+        return JWT.verify(token, JWT_SECRET);
     } catch (error) {
         console.log(error);
         throw new Error("Invalid or expired token");
