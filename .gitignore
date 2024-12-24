@@ -32,3 +32,8 @@ build/
 # Miscellaneous files
 *.pid
 *.seed
+
+
+public/icons
+public/images
+public/images/*
