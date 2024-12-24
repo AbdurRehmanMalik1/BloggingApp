@@ -2,10 +2,33 @@
 <html>
     <%- include('partials/head'); %>
     <body>
-    <%- include('partials/navbar') %>
-        <main>
-            This is the add blog page
-        </main>
-    <% include('partials/script') %>
+    <%- include('partials/navbar',{fullName}) %>
+        <form action="/add-blog/create" method="post" enctype="multipart/form-data">
+            <main class="add-blog-main">
+                <div class="input-div">
+                    <h2 style="margin-top: 20px;">Create Blog</h2>
+                </div>
+                <div class="input-div">
+                    <p style="font-size: 20px ;margin: 0;">Title</p>
+                    <input style="width: 400px" type="text" name="title">
+                </div>
+                <div class="input-div">
+                    <p style="font-size: 20px; margin: 0;">Content</p>
+                    <textarea style="width: 400px;text-align: left;" id="blog-content" name="content" rows="4" cols="50">
+                    </textarea>
+                </div>
+                <div class="input-div">
+                    <div style="margin-top: 18px;" class="mb-3">
+                        <input  name="headerImage" class="form-control" type="file" id="formFile">
+                    </div>
+                </div>
+                <div class="input-div">
+                    <button class="create-button"  type="submit">
+                        Create Blog
+                    </button>
+                </div>
+            </main>
+        </form>
+    <%- include('partials/script'); %>
     </body>
 </html>

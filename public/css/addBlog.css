@@ -1,0 +1,24 @@
+.add-blog-main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 10px;
+}
+.input-div{
+    display: flex;
+    flex-direction: column;
+    column-gap: 0;
+}
+.create-button{
+    margin-top: 30px;
+    border: none;
+    border-radius: 10%;
+    background-color: rgba(183, 200, 215, 0.527);
+    padding: 10px 20px;
+}
+.fileUploader{
+    margin-top: 8px;
+    border-radius: 20%;
+    background-color: rgba(183, 200, 215, 0.527);
+}

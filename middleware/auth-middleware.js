@@ -6,6 +6,10 @@ async function checkAuthentication(req, res, next) {
     const token = req.cookies?.token;
     if(!token) return next();
     const tokenUser = getUserFromToken(token);
+    if(!tokenUser) {
+        res.clearCookie('token');
+        return res.render('home');
+    }
     const returnedUser = await User.findOne({
         _id: tokenUser._id,
         email: tokenUser.email,
@@ -14,9 +18,9 @@ async function checkAuthentication(req, res, next) {
     });
     req.user = returnedUser;
     //console.log(req.user);
-    if (req.originalUrl === '/') {
+    if (req.originalUrl === '/') 
         return res.render('home', { fullName: returnedUser.fullName});
-    }
+    
     next();
 }
 

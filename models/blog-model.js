@@ -5,7 +5,7 @@ const blogSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
-    Content:{
+    content:{
         type: String,
         required:true,
     },
@@ -14,7 +14,18 @@ const blogSchema = new mongoose.Schema({
         ref: 'user',
         required: true
     },
+    headerImageURL:{
+        type:String,
+        default:"images/defaultBlogImage.png",
+    },
     createdAt: { type: Date, default: Date.now }
+});
+
+blogSchema.pre('save', function(next) {
+    if (!this.headerImageURL) {
+        this.headerImageURL = "images/defaultBlogImage.png";
+    }
+    next();
 });
 
 const Blog = mongoose.model('blog', blogSchema);

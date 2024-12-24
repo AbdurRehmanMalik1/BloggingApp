@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <%- include('partials/head'); %>
+    <body>
+    <%- include('partials/navbar'); %>   
+    <main>
+        <div style="display: flex;flex-direction: row;justify-content: center;align-items: center;" >
+            <div style="margin-top: 25px;display: flex;flex-direction: row;flex-wrap: wrap; column-gap: 10px;row-gap: 10px;">
+                <% for( let index = 0; index < blogs.length; index++ ) { %>
+                    <div class="card" style="display: flex;flex-direction: column;width: 13rem;">
+                        <img class="card-img-top" src="<%=blogs[index].headerImageURL%>" alt="Card image cap" >
+                        <div class="card-body" style="display: flex;flex-direction: column;flex-grow: 1;">
+                          <h5 class="card-title"><%= blogs[index].title %></h5>
+                          <p class="card-text" style="flex:1;font-size: 14px;">
+                            <%= blogs[index].content.length > 60 ? blogs[index].content.substring(0, 60) + '...' : blogs[index].content %>
+                          </p>
+                          <a  style="align-self: flex-start;"  class="btn btn-primary" href="/blog/<%=blogs[index]._id%>">Read More</a>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </main> 
+    
+    <%- include('partials/script'); %>
+    </body>
+</html>

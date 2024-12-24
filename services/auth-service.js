@@ -20,7 +20,7 @@ function getUserFromToken(token){
         return JWT.verify(token, JWT_SECRET);
     } catch (error) {
         console.log(error);
-        throw new Error("Invalid or expired token");
+        return null;
     }
 }
 
