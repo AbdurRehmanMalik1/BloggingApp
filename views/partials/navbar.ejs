@@ -1,15 +1,26 @@
-<% 
-  const displayName = (typeof fullName !== 'undefined' && fullName) ? fullName : 'Guest'; 
-%>
+<% if (typeof user !== 'undefined' && user !== null) { %>
+  <% var displayName = user.fullName || 'Guest'; %>
+  <% var loggedIn = true; %>
+<% } else { %>
+  <% var displayName = 'Guest'; %>
+  <% var loggedIn = false; %>
+<% } %>
+
+
+
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">ProgramC</a>
+    <% if (loggedIn) { %>
+      <img class="nav-item" style="border-radius: 100%;object-fit: contain;margin-right: 8px;" width="50px" src="<%=user.profileImageUrl%>"/>
+    <% } %>
+    <a class="navbar-brand" href="/">ProgramC</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
@@ -25,7 +36,7 @@
             </li>
           </ul>
         </li>
-        <% if (displayName!=='Guest') { %>
+        <% if (loggedIn) { %>
           <li class="nav-item">
             <a class="nav-link" href="/add-blog">Add Blog</a>
           </li>
@@ -35,7 +46,7 @@
             <%= displayName %>
           </a>
           <ul class="dropdown-menu">
-            <% if (displayName !== 'Guest') { %>
+            <% if (loggedIn) { %>
                 <li class="nav-item dropdown">
                   <form action="/user/logout" method="POST" style="display: inline;">
                     <button type="submit" class="dropdown-item">
@@ -53,6 +64,7 @@
             <% } %>
           </ul>
         </li>
+        
       </ul>
       <form method="get" action="/search" class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

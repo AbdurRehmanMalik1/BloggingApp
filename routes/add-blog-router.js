@@ -3,6 +3,7 @@ const Blog = require("../models/blog-model");
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
+const destructureUser = require('../Util/destructureUser');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -23,22 +24,14 @@ const router = express.Router();
 
 
 router.get('/', (req, res) => {
-    const fullName = req.user?.fullName || 'Guest';
-    return res.render('addBlog', { fullName });
+    const user = destructureUser(req?.user);
+    return res.render('addBlog', { user });
 });
 
 router.post('/create', upload.single('headerImage'), async (req, res) => {
     try {
         const { title, content } = req.body;
         const { _id: userId } = req.user;
-
-        // if (!req.file) {
-        //     return res.render('addBlog', { 
-        //         fullName: req.user.fullName, 
-        //         error: "Header image is required." 
-        //     });
-        // }
-        // console.log
         const headerImageURL = req.file?.filename?`/images/${req.file.filename}`:null;
         const blog = await Blog.create({
             title,
@@ -64,7 +57,7 @@ router.post('/create', upload.single('headerImage'), async (req, res) => {
             });
         }
         return res.render('addBlog', { 
-            fullName: req.user.fullName, 
+            user: destructureUser(req.user), 
             error: error.message || "An unexpected error occurred." 
         });
     }

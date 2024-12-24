@@ -9,6 +9,7 @@ const blogRouter = require('./routes/blog-router');
 
 const {checkAuthentication,restrictTo} = require('./middleware/auth-middleware');
 const cookieParser = require('cookie-parser');
+const destructureUser = require('./Util/destructureUser');
 
 const PORT = process.env.SERVER_PORT;
 const app = express();
@@ -34,10 +35,10 @@ app.get('/admin', restrictTo(['ADMIN']), (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    const fullName = req.user?.fullName || 'Guest'; 
-    console.log(`This user's full name = ${fullName}`);
-    
-    return res.render('home', { fullName: fullName });
+    const user = destructureUser(req.user);
+    console.log(user);
+    //console.log(`This user's full name = ${fullName}`);
+    return res.render('home', { user });
 });
 
 

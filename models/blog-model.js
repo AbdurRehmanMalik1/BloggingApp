@@ -16,14 +16,14 @@ const blogSchema = new mongoose.Schema({
     },
     headerImageURL:{
         type:String,
-        default:"images/defaultBlogImage.png",
+        default:"/images/defaultBlogImage.png",
     },
     createdAt: { type: Date, default: Date.now }
 });
 
 blogSchema.pre('save', function(next) {
     if (!this.headerImageURL) {
-        this.headerImageURL = "images/defaultBlogImage.png";
+        this.headerImageURL = "/images/defaultBlogImage.png";
     }
     next();
 });

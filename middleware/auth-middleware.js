@@ -1,5 +1,6 @@
 const {createTokenForUser,getUserFromToken} = require('../services/auth-service');
 const User = require('../models/user-model');
+const destructureUser = require('../Util/destructureUser');
 
 
 async function checkAuthentication(req, res, next) {
@@ -8,7 +9,7 @@ async function checkAuthentication(req, res, next) {
     const tokenUser = getUserFromToken(token);
     if(!tokenUser) {
         res.clearCookie('token');
-        return res.render('home');
+        return res.render('home',{user:null});
     }
     const returnedUser = await User.findOne({
         _id: tokenUser._id,
@@ -18,8 +19,9 @@ async function checkAuthentication(req, res, next) {
     });
     req.user = returnedUser;
     //console.log(req.user);
+    const user = destructureUser(returnedUser);
     if (req.originalUrl === '/') 
-        return res.render('home', { fullName: returnedUser.fullName});
+        return res.render('home', {user});
     
     next();
 }
