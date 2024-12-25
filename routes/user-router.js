@@ -2,11 +2,12 @@ const express = require("express");
 const User = require("../models/user-model");
 const {createTokenForUser} = require("../services/auth-service");
 const profileRouter = require('./user-profile-router');
+const { restrictTo } = require("../middleware/auth-middleware");
 
 const router = express.Router();
 
 
-router.use('/profile',profileRouter);
+router.use('/profile',restrictTo(['USER', 'ADMIN']),profileRouter);
 
 router.get('/login', (req, res) => {
     return res.render('login');
@@ -24,7 +25,6 @@ router.post('/login', async (req, res) => {
     const isValid = user.verifyUser(password);
     
     if (!isValid) {
-        //console.log(`Is valid : ${isValid}`);
         return res.render('login', { error: "Invalid Email or Password" });
     }
     const token = createTokenForUser(user);
@@ -55,6 +55,9 @@ router.post('/signup', async (req, res) => {
         res.cookie('token', token);
         return res.redirect('../');
     } catch (error) {
+        if (error.code === 11000) {
+            return res.render('signup', { error: "Email already exists." });
+        }
         return res.render('signup', { error: "An error occurred, please try again." });
     }
 });

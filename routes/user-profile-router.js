@@ -1,12 +1,16 @@
 const express = require("express");
 const User = require("../models/user-model");
-const { restrictTo } = require('../middleware/auth-middleware');
+//const { restrictTo } = require('../middleware/auth-middleware');
 const destructureUser = require("../Util/destructureUser");
 const { getUserFromToken, createTokenForUser } = require("../services/auth-service");
+const upload = require('../middleware/multer-middleware');
+const fs = require('fs');
+const path = require('path');
+const logger = require('winston');
 
 const router = express.Router();
 
-router.get('/', restrictTo(['ADMIN', 'USER']), (req, res) => {
+router.get('/', (req, res) => {
     try {
         const user = destructureUser(req.user);
         return res.render('profile', { user });
@@ -15,12 +19,24 @@ router.get('/', restrictTo(['ADMIN', 'USER']), (req, res) => {
     }
 });
 
-router.put('/', restrictTo(['ADMIN', 'USER']), async (req, res) => {
+router.put('/', upload.single('profileImage'), async (req, res) => {
     try {
-        const { profileImageUrl, fullName } = req.body;
+        const { fullName } = req.body;
+        let profileImageUrl = req.file?.filename?`/images/${req.file.filename}`:null;
+        if (!profileImageUrl) {
+            profileImageUrl = req.user.profileImageUrl;
+        }
         const _id = req.user._id;
 
-        await User.updateOne({ _id }, { profileImageUrl, fullName });
+        const oldDoc= await User.findOneAndUpdate(
+            { _id },
+            { profileImageUrl, fullName },
+            { new: false }  
+        );
+        const oldImageUrl = req.file?.filename?oldDoc.profileImageUrl:null;
+        if(oldImageUrl && oldImageUrl!=='/images/defaultProfile.png'){
+            removeOldProfileImage(oldImageUrl);
+        }
 
         const cookieToken = req.cookies?.token;
         if (!cookieToken) {
@@ -41,5 +57,19 @@ router.put('/', restrictTo(['ADMIN', 'USER']), async (req, res) => {
         return res.status(500).json({ error: 'Failed to update profile.' });
     }
 });
+
+
+function removeOldProfileImage(oldPath){
+    const filePath = path.join(__dirname, '../public'+oldPath);
+    fs.unlink(filePath, (err) => {
+        if (err) {
+            console.log('Error deleting file:', err);
+            //logger.error('Error deleting the file:', err)
+        } else {
+           
+            //logger.info('Error deleting the file:', err)
+        }
+    });
+}
 
 module.exports = router;

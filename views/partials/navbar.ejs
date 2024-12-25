@@ -12,7 +12,7 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <% if (loggedIn) { %>
-      <img class="nav-item" style="border-radius: 100%;object-fit: contain;margin-right: 8px;" width="50px" src="<%=user.profileImageUrl%>"/>
+      <img class="nav-item" style="border-radius: 100%;object-fit: cover;margin-right: 8px ;width:50px;height: 50px;" src="<%=user.profileImageUrl%>"/>
     <% } %>
     <a class="navbar-brand" href="/">ProgramC</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,9 +30,11 @@
             <li class="dropdown-item">
               <a class="nav-link" href="/blog">Browse</a>
             </li>
-            <li class="dropdown-item">
-              <a class="nav-link" href="/blog/my">My Blogs</a>
-            </li>
+            <% if (loggedIn) { %>
+              <li class="dropdown-item">
+                <a class="nav-link" href="/blog/my">My Blogs</a>
+              </li>
+            <% } %>
           </ul>
         </li>
         <% if (loggedIn) { %>

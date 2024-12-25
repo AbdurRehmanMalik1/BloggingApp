@@ -4,21 +4,23 @@
     <body>
     <%- include('partials/navbar'); %>   
     <main style="padding:10px 20%; box-sizing: border-box;">
-        <form method="put" action="/user/profile">
-            <input type="hidden" name="_method" value="PUT">
+        <form id="profileForm">
             <div class="mb-3" style="display: flex; align-items: center; justify-content: center;">
                 <h1>Profile</h1>
             </div>
             <div class="mb-3" style="display: flex; flex-direction: row; justify-content: center;">
-                <img src="<%=user.profileImageUrl %>" width="100px">
+                <img id="profileImagePreview" src="<%= user.profileImageUrl %>" width="100px" alt="Profile Image" 
+                style="cursor: pointer; border: 1px solid #ccc; padding: 0px; border-radius: 50%;object-fit: contain;">
+                <!-- Hidden File Input -->
+                <input type="file" id="profileImageInput" name="profileImage" style="display: none;" accept="image/*">
             </div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input value="<%=user.email%>" type="email" disabled class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp">
+                <input value="<%=user.email%>" type="email" disabled class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
             </div>
             <div class="mb-3">
                 <label for="exampleInputUser1" class="form-label">Full Name</label>
-                <input type="text" class="form-control" id="exampleInputUser1" name="fullName">
+                <input value="<%=user.fullName%>" type="text" class="form-control" id="exampleInputUser1" name="fullName">
             </div>
             <div class="mb-3" style="display: flex; flex-direction: row; justify-content: center;">
                 <button type="submit" class="btn btn-primary">Save Changes</button>
@@ -26,5 +28,58 @@
         </form>
     </main>
     <%- include('partials/script'); %>
+    
+
+    <script>
+            // Get the image and hidden file input elements
+        const profileImagePreview = document.getElementById('profileImagePreview');
+        const profileImageInput = document.getElementById('profileImageInput');
+        let profileImageData = null;
+
+        // When the image is clicked, trigger the file input click
+        profileImagePreview.addEventListener('click', () => {
+            profileImageInput.click();
+        });
+
+        // Update the image preview when a new file is selected
+        profileImageInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    profileImagePreview.src = e.target.result; // Update image source
+                    profileImageData = file; // Store the file itself
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        profileForm.addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const fullName = document.getElementById('exampleInputUser1').value;
+            const email = document.getElementById('exampleInputEmail1').value; // Email remains the same, not editable
+            
+            const formData = new FormData();
+            formData.append('fullName', fullName);
+            formData.append('profileImage', profileImageInput.files[0]);
+
+            fetch('/user/profile', {
+                method: 'PUT',
+                body: formData, 
+            })
+            .then(response => {
+                if (response.redirected) {
+                    window.location.href = response.url;  
+                }
+                return response.json(); 
+            })
+            .then(data => {
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
     </body>
 </html>

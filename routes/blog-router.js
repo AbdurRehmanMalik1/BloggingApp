@@ -10,7 +10,6 @@ const router= express.Router();
 
 router.get('/my',restrictTo(['USER','ADMIN']), async (req, res) => {
     const user = destructureUser(req.user);
-    console.log(user);
     const blogs = await Blog.find({author:req.user._id});
     return res.render('myBlog', { user , blogs});
 });
@@ -29,7 +28,6 @@ router.get('/my/:id',restrictTo(['USER','ADMIN']), async(req,res)=>{
             headerImageURL: blog.headerImageURL,
         }
     };
-    console.log(responseBody);
     return res.render('blogDetail' , responseBody);
 });
 
@@ -42,7 +40,6 @@ router.get('/:id', async (req, res) => {
     const author = await User.findById(blog.author._id);
 
     const user = destructureUser(req.user);
-    console.log(user);
     const responseBody = {
         blog: {
             blog: blog._id,
@@ -52,8 +49,6 @@ router.get('/:id', async (req, res) => {
             headerImageURL: blog.headerImageURL,
         },
     };
-
-    console.log({user,blog:responseBody.blog});
     return res.render('blogDetail', {user,blog:responseBody.blog});
 });
 

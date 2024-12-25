@@ -23,6 +23,11 @@
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
       </form>
+      <% if (typeof error !== 'undefined' && error) { %>
+        <div style="display: flex;flex-direction: row;justify-content: center ;align-items: center;">
+          <p style="color: red;"><%= error %></p>
+        </div>
+      <% } %>
     </div>
    
     <%- include('partials/script'); %>

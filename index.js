@@ -2,6 +2,8 @@ require('dotenv').config();
 const path = require("path");
 const express = require("express");
 const connectMongoDB = require("./mongo_connection");
+const methodOverride = require('method-override')
+
 
 const userRouter = require("./routes/user-router");
 const addBlogRouter = require("./routes/add-blog-router");
@@ -19,14 +21,35 @@ connectMongoDB();
 app.set("view engine","ejs" );
 app.set("views" ,path.resolve('./views'));
 
+//Library Middlewares
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded form data
+app.use(express.json());                // Parse JSON bodies
+app.use(cookieParser());                // Parse cookies
 
-app.use(cookieParser());
+// app.use((req, res, next) => {
+//     console.log(`Before:\nMethod: ${req.method}, Path: ${req.path} , Body: `);
+//     console.log(req.body);
+//     next();
+// });
+
+app.use(methodOverride('_method'));     // Override HTTP method
+
+// app.use((req, res, next) => {
+//     console.log(`After:\nMethod: ${req.method}, Path: ${req.path} , Body: `);
+//     console.log(req.body);
+//     console.log(req.file);
+//     next();
+// });
+// Static file middleware (should come after body parsers, before routes)
 app.use(express.static('public'));
-app.use(express.json()); 
-app.use(express.urlencoded({extended:false}));
+
+
+//Custom Middlwares
+////Testing Middle ware to check request types
 
 app.use(checkAuthentication);
 
+//API Routes
 app.use('/user',userRouter);
 app.use('/add-blog',restrictTo(['USER','ADMIN']),addBlogRouter);
 app.use('/blog',blogRouter);

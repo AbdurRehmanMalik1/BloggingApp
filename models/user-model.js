@@ -53,6 +53,33 @@ userSchema.methods.verifyUser = function (password) {
 
     return this.password === hashedPassword;  
 };
+userSchema.pre('save', function(next) {
+
+    if (!this.profileImageUrl) {
+        console.log('defaulting img');
+        this.profileImageUrl = '/images/defaultProfile.png';
+    }
+    next(); // Proceed with the save operation
+});
+userSchema.pre('findOneAndUpdate', function(next) {
+    const update = this.getUpdate();
+    if (!update.profileImageUrl) {
+        console.log('defaulting img');
+        update.profileImageUrl = '/images/defaultProfile.png';
+    }else{
+        
+    }
+    next(); 
+});
+
+userSchema.pre('updateOne', function(next) {
+    const update = this.getUpdate();
+    if (!update.profileImageUrl) {
+        console.log('defaulting img');
+        update.profileImageUrl = '/images/defaultProfile.png'; 
+    }
+    next();
+});
 
 const User = mongoose.model("user",userSchema);
 
