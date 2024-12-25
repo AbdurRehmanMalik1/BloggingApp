@@ -1,8 +1,12 @@
 const express = require("express");
 const User = require("../models/user-model");
 const {createTokenForUser} = require("../services/auth-service");
+const profileRouter = require('./user-profile-router');
 
 const router = express.Router();
+
+
+router.use('/profile',profileRouter);
 
 router.get('/login', (req, res) => {
     return res.render('login');
@@ -36,10 +40,8 @@ router.get('/signup', (req, res) => {
 
 router.post('/signup', async (req, res) => {
     const { email, password,fullName } = req.body;
-    //console.log(`Email: ${email},Full Name: ${fullName} ,Password: ${password}`)
     const validationError = checkSignUpFields(email, fullName, password);
     if (validationError) {
-        //console.log(`Error had occured: ${validationError}`);
         return res.render("signup", { error: validationError });
     }
 
@@ -49,12 +51,10 @@ router.post('/signup', async (req, res) => {
         if (!user) {
             return res.render('signup', { error: "Failed To Signup" });
         }
-        //console.log("Created User");
         const token = createTokenForUser(user);
         res.cookie('token', token);
         return res.redirect('../');
     } catch (error) {
-        //console.log(`Error had occured: ${error}`);
         return res.render('signup', { error: "An error occurred, please try again." });
     }
 });

@@ -8,7 +8,7 @@
             <div style="margin-top: 25px;display: flex;flex-direction: row;flex-wrap: wrap; column-gap: 10px;row-gap: 10px;">
                 <% for( let index = 0; index < blogs.length; index++ ) { %>
                     <div class="card" style="display: flex;flex-direction: column;width: 13rem;">
-                        <img class="card-img-top" src="<%=blogs[index].headerImageURL%>" alt="Card image cap" >
+                        <img style="height: 9rem;" class="card-img-top" src="<%=blogs[index].headerImageURL%>" alt="Card image cap" >
                         <div class="card-body" style="display: flex;flex-direction: column;flex-grow: 1;">
                           <h5 class="card-title"><%= blogs[index].title %></h5>
                           <p class="card-text" style="flex:1;font-size: 14px;">

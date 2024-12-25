@@ -18,7 +18,6 @@ router.get('/my/:id',restrictTo(['USER','ADMIN']), async(req,res)=>{
     const blogId = req.params?.id;
     const blog = await Blog.findById(blogId);
     if(!blogId) return res.status(403).json({error:'Blog does not exist'});
-    //const author = await User.findById(blog.author._id);
     const user = destructureUser(req.user);
     const responseBody = {
         user,
@@ -31,7 +30,6 @@ router.get('/my/:id',restrictTo(['USER','ADMIN']), async(req,res)=>{
         }
     };
     console.log(responseBody);
-    //console.log(blogId);
     return res.render('blogDetail' , responseBody);
 });
 

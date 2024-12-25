@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <%- include('partials/head'); %>
+    <body>
+    <%- include('partials/navbar'); %>   
+    <main style="padding:10px 20%; box-sizing: border-box;">
+        <form method="put" action="/user/profile">
+            <input type="hidden" name="_method" value="PUT">
+            <div class="mb-3" style="display: flex; align-items: center; justify-content: center;">
+                <h1>Profile</h1>
+            </div>
+            <div class="mb-3" style="display: flex; flex-direction: row; justify-content: center;">
+                <img src="<%=user.profileImageUrl %>" width="100px">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input value="<%=user.email%>" type="email" disabled class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputUser1" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="exampleInputUser1" name="fullName">
+            </div>
+            <div class="mb-3" style="display: flex; flex-direction: row; justify-content: center;">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+        </form>
+    </main>
+    <%- include('partials/script'); %>
+    </body>
+</html>
