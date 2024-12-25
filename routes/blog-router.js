@@ -42,7 +42,7 @@ router.get('/:id', async (req, res) => {
     const user = destructureUser(req.user);
     const responseBody = {
         blog: {
-            blog: blog._id,
+            _id: blog._id,
             title: blog.title,
             content: blog.content,
             author: author.fullName,
