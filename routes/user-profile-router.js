@@ -1,6 +1,5 @@
 const express = require("express");
 const User = require("../models/user-model");
-//const { restrictTo } = require('../middleware/auth-middleware');
 const destructureUser = require("../Util/destructureUser");
 const { getUserFromToken, createTokenForUser } = require("../services/auth-service");
 const upload = require('../middleware/multer-middleware');

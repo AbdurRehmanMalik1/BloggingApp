@@ -1,4 +1,4 @@
-const {createTokenForUser,getUserFromToken} = require('../services/auth-service');
+const {getUserFromToken} = require('../services/auth-service');
 const User = require('../models/user-model');
 const destructureUser = require('../Util/destructureUser');
 

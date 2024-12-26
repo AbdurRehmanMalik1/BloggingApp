@@ -6,11 +6,7 @@ const path = require("path");
 const destructureUser = require('../Util/destructureUser');
 const logger = require('../logger');
 
-
-//const upload = blogImageMulter;
 const router = express.Router();
-
-
 
 router.get('/', (req, res) => {
     const user = destructureUser(req?.user);

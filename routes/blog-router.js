@@ -2,9 +2,6 @@ const express = require("express");
 const Blog = require("../models/blog-model");
 const User = require("../models/user-model");
 const mongoose = require("mongoose");
-const multer = require("multer");
-const fs = require("fs");
-const path = require("path");
 const commentRouter= require('./comment-router');
 
 const {restrictTo} = require('../middleware/auth-middleware');
