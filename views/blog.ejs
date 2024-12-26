@@ -5,7 +5,8 @@
     <%- include('partials/navbar'); %>   
     <main>
         <div style="display: flex;flex-direction: row;justify-content: center;align-items: center;" >
-            <div style="margin: 25px 20px 0px 25px;display: flex;flex-direction: row;flex-wrap: wrap; column-gap: 10px;row-gap: 10px;">
+            <div style="margin: 25px 5px 0px 5px;display: flex;
+            flex-direction: row;flex-wrap: wrap; column-gap: 10px;row-gap: 10px;">
                 <% for( let index = 0; index < blogs.length; index++ ) { %>
                     <div class="card" style="display: flex;flex-direction: column;width: 13rem;">
                         <img style="height: 9rem;" class="card-img-top" src="<%=blogs[index].headerImageURL%>" alt="Card image cap" >

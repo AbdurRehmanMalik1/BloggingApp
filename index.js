@@ -66,7 +66,7 @@ app.get('/', (req, res) => {
 
 
 
-app.listen(PORT ,()=> console.log(`Server Started at PORT ${PORT} `));
+app.listen(PORT,'0.0.0.0' ,()=> console.log(`Server Started at PORT ${PORT} `));
 
 
 process.on('SIGTERM', () => {

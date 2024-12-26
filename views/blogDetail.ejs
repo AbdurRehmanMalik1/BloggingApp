@@ -7,7 +7,6 @@
           <div  style="
                   display: flex;
                   flex-direction: column;
-                  
                   border: 1px solid rgba(0, 0, 0, 0.483);
                   padding: 15px 20px;
                   row-gap: 20px;
@@ -22,15 +21,31 @@
                           </div>
                           
           </div>
-          <% console.log(blog._id) %>
+        
           <form method="post" action="/blog/comment/<%=blog._id%>" enctype="application/x-www-form-urlencoded">
+            <hr style="border: 1px solid black; margin: 40px 0;">
             <footer class="card-body" style="margin-top: 15px;display: flex;flex-direction: column;row-gap:10px;width: 100%;">
               <p class="card-text" style="font-size: 20px; margin: 0;">Comment</p>
-              <textarea style="text-align:left; width: 100%;" id="blog-content" name="comment" rows="4" cols="50">
+              <textarea style="text-align:left; width: 100%;" id="blog-content" name="content" rows="4" cols="50">
               </textarea>
               <button type="submit" class="btn-primary btn" style="align-self: flex-start;">Comment</button>
             </footer>
           </form>
+          <hr style="border: 1px solid black; margin: 40px 0;">
+          <div style="display: flex; flex-direction: column;margin-top: 20px;row-gap: 10px;">
+            <h5>Comments</h5>
+            <% if ( blog.comment.length !== 0) { %>
+              <% for( let i = 0; i < blog.comment.length; i++ ) { %>
+                <div style="display: flex;flex-direction: column;padding: 4px 6px;border: 1px solid gray;border-radius: 5%;">
+                  <div style="display: flex;flex-direction: row;align-items: center;">
+                    <img style="width:50px;height:auto;border-radius: 50%;" src="<%=blog.comment[i].author.profileImageUrl%>">
+                    <label style="margin: 0;color: rgb(95, 89, 89);"><%=blog.comment[i].author.fullName%></label>
+                  </div>
+                  <p style="margin: 0;padding-left: 10px;"><%=blog.comment[i].content%></p>
+                </div>
+              <% } %>
+            <% } %>     
+          </div>
       </main> 
       
     <%- include('partials/script'); %>

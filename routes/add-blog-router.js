@@ -39,7 +39,7 @@ router.post('/create', upload.single('headerImage'), async (req, res) => {
             const filePath = path.join(__dirname, '../public/images', req.file.filename);
             fs.unlink(filePath, (err) => {
                 if (err) {
-                    console.log('Error deleting the file:', err);
+                    console.error('Error deleting the file:', err);
                     //logger.error('Error deleting the file:', err);
                 } else {
                     //logger.info('File deleted successfully');

@@ -4,17 +4,17 @@
     <body>
     <%- include('partials/navbar') %>
         <form action="/add-blog/create" method="post" enctype="multipart/form-data">
-            <main class="add-blog-main">
+            <main class="add-blog-main" style="max-width: 700px;min-width: 400px;margin-left: auto;margin-right: auto;">
                 <div class="input-div">
                     <h2 style="margin-top: 20px;">Create Blog</h2>
                 </div>
                 <div class="input-div">
                     <p style="font-size: 20px ;margin: 0;">Title</p>
-                    <input style="width: 400px" type="text" name="title">
+                    <input style="width: 100%;" type="text" name="title">
                 </div>
                 <div class="input-div">
                     <p style="font-size: 20px; margin: 0;">Content</p>
-                    <textarea style="width: 400px;text-align: left;" id="blog-content" name="content" rows="4" cols="50">
+                    <textarea style="width: 100%;;text-align: left;" id="blog-content" name="content" rows="4" cols="50">
                     </textarea>
                 </div>
                 <div class="input-div">
