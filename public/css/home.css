@@ -1,0 +1,20 @@
+.main-home{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
+.div-home{
+    max-width: 600px;
+    padding: 20px 30px;
+    border: 1px solid rgba(128, 128, 128, 0.324);
+    border-radius: 10px;
+    display:flex;
+    flex-direction:column;
+    row-gap: 20px;
+    background-color: white;
+    
+}

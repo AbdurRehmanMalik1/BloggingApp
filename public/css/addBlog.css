@@ -14,11 +14,15 @@
     align-items: start;
 }
 .create-button{
-    margin-top: 30px;
+    margin-top: 15px;
     border: none;
     border-radius: 10%;
     background-color: rgba(183, 200, 215, 0.527);
-    padding: 10px 20px;
+    padding: 8px 16px;
+}
+.create-button:hover{
+    background-color: rgba(172, 174, 176, 0.936);
+    transition: 0.1s ease;
 }
 .fileUploader{
     margin-top: 8px;

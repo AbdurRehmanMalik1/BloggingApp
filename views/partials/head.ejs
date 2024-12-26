@@ -8,10 +8,24 @@
     <link rel="stylesheet" href="/css/addBlog.css">
     <link rel="stylesheet" href="/css/editBlog.css">
     <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/navbar.css">
     <style>
         .responsive-image {
             width: 100%; /* Adjust width as needed */
             height: auto; /* Ensures height scales with width */
+        }
+        .text {
+                    opacity: 0;
+                    transform: translateX(-50px); /* Initially off-screen */
+                    animation: slideIn 0.8s ease-in-out forwards;
+        }
+
+        @keyframes slideIn {
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
         }
     </style>
 </head>

@@ -1,0 +1,7 @@
+.navbar-title:hover{
+    color: rgba(39, 36, 36, 0.68);
+}
+.navbar-pic:hover{
+    opacity: 0.9;
+    cursor: pointer;
+}

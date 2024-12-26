@@ -24,41 +24,6 @@ commentSchema.pre('save', function (next) {
     this.createdAt = Date.now();
     next();
 });
-// userSchema.methods.verifyUser = function (password) {
-//     const hashedPassword = crypto
-//         .createHash('sha256')
-//         .update(password + this.salt)  
-//         .digest('hex');
-
-//     return this.password === hashedPassword;  
-// };
-// userSchema.pre('save', function(next) {
-
-//     if (!this.profileImageUrl) {
-//         console.log('defaulting img');
-//         this.profileImageUrl = '/images/defaultProfile.png';
-//     }
-//     next(); // Proceed with the save operation
-// });
-// userSchema.pre('findOneAndUpdate', function(next) {
-//     const update = this.getUpdate();
-//     if (!update.profileImageUrl) {
-//         console.log('defaulting img');
-//         update.profileImageUrl = '/images/defaultProfile.png';
-//     }else{
-        
-//     }
-//     next(); 
-// });
-
-// userSchema.pre('updateOne', function(next) {
-//     const update = this.getUpdate();
-//     if (!update.profileImageUrl) {
-//         console.log('defaulting img');
-//         update.profileImageUrl = '/images/defaultProfile.png'; 
-//     }
-//     next();
-// });
 
 const Comment = mongoose.model("comment",commentSchema);
 

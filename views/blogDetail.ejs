@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
     <%- include('partials/head'); %>
-    <body style="padding: 20px 20px;">
+    <body>
     <%- include('partials/navbar'); %>   
-      <main style="display: flex; align-items: stretch;max-width: 750px;flex-direction: column;">
+      <main style="display: flex; align-items: stretch;max-width: 750px;flex-direction: column;padding: 20px 20px;">
           <div  style="
                   display: flex;
                   flex-direction: column;
                   border: 1px solid rgba(0, 0, 0, 0.483);
                   padding: 15px 20px;
                   row-gap: 20px;
+                  box-shadow: 1px 1px 1px;
                   ">      
                           <img  style="border-radius: inherit;width:100%;" class="card-img-top responsive-image" src="<%=blog.headerImageURL%>" alt="Card image cap" >
                           <div class="card-body" style="display: flex;flex-direction: column;row-gap:10px ;">
@@ -36,7 +37,9 @@
             <h5>Comments</h5>
             <% if ( blog.comment.length !== 0) { %>
               <% for( let i = 0; i < blog.comment.length; i++ ) { %>
-                <div style="display: flex;flex-direction: column;padding: 4px 6px;border: 1px solid gray;border-radius: 5%;">
+                <div style="display: flex;flex-direction: column;padding: 4px 6px;
+                  border: 1px solid gray;border-radius: 0;
+                  box-shadow: 2px 1px 2px;">
                   <div style="display: flex;flex-direction: row;align-items: center;">
                     <img style="width:50px;height:auto;border-radius: 50%;" src="<%=blog.comment[i].author.profileImageUrl%>">
                     <label style="margin: 0;color: rgb(95, 89, 89);"><%=blog.comment[i].author.fullName%></label>
