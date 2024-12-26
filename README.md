@@ -33,10 +33,10 @@ MongoDB_URL =
 JWT_SECRET =
 
 
-Bash
+Open Bash
 
 npm start
-The application will now be running on http://localhost:3000.
+The application will now be running on http://localhost:SERVER_PORT.
 
 Contributing
 Contributions are welcome! Please feel free to submit a pull request or open an issue.

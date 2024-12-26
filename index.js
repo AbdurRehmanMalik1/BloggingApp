@@ -2,8 +2,6 @@ require('dotenv').config();
 const path = require("path");
 const express = require("express");
 const connectMongoDB = require("./mongo_connection");
-const methodOverride = require('method-override')
-
 
 const userRouter = require("./routes/user-router");
 const addBlogRouter = require("./routes/add-blog-router");
