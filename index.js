@@ -26,20 +26,6 @@ app.use(express.urlencoded({ extended: true })); // Parse URL-encoded form data
 app.use(express.json());                // Parse JSON bodies
 app.use(cookieParser());                // Parse cookies
 
-// app.use((req, res, next) => {
-//     console.log(`Before:\nMethod: ${req.method}, Path: ${req.path} , Body: `);
-//     console.log(req.body);
-//     next();
-// });
-
-app.use(methodOverride('_method'));     // Override HTTP method
-
-// app.use((req, res, next) => {
-//     console.log(`After:\nMethod: ${req.method}, Path: ${req.path} , Body: `);
-//     console.log(req.body);
-//     console.log(req.file);
-//     next();
-// });
 // Static file middleware (should come after body parsers, before routes)
 app.use(express.static('public'));
 
@@ -66,7 +52,7 @@ app.get('/', (req, res) => {
 
 
 
-app.listen(PORT,'0.0.0.0' ,()=> console.log(`Server Started at PORT ${PORT} `));
+app.listen(PORT,()=> console.log(`Server Started at PORT ${PORT} `));
 
 
 process.on('SIGTERM', () => {
