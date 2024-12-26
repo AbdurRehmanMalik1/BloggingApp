@@ -29,7 +29,9 @@ Create a new database for the application.
 Create a .env file in the project root with the following environment variables:
 
 SERVER_PORT =
+
 MongoDB_URL = 
+
 JWT_SECRET =
 
 
