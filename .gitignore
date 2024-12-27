@@ -34,6 +34,5 @@ build/
 *.seed
 
 
-public/icons/
-public/images/
+public/icons/*
 public/images/*
