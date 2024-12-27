@@ -36,3 +36,5 @@ build/
 
 public/icons/*
 public/images/*
+!public/images/defaultBlogImage.png
+!public/images/defaultProfile.png
