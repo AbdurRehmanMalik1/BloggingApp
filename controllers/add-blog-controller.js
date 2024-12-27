@@ -2,8 +2,6 @@ const Blog = require("../models/blog-model");
 const fs = require("fs");
 const path = require("path");
 const destructureUser = require('../Util/destructureUser');
-const logger = require('../logger');
-
 
 function handleShowAddBlogPage(req,res){
     const user = destructureUser(req?.user);
