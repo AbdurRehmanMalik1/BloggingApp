@@ -34,7 +34,7 @@
           </form>
           <hr style="border: 1px solid black; margin: 40px 0;">
           <div id="commentSection" style="display: flex; flex-direction: column;margin-top: 20px;row-gap: 10px;">
-            <h5>Comments</h5>
+            <h5>Comments<span>(<%=blog.comment.length%>)</span></h5>
             <% if ( blog.comment.length !== 0) { %>
               <% for( let i = 0; i < blog.comment.length; i++ ) { %>
                 <div style="

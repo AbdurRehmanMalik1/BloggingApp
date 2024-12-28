@@ -7,7 +7,6 @@ winston.remove(winston.transports.Console);
 
 // Define the log directory path
 const logDirectory = path.join(__dirname, '/log'); 
-console.log(logDirectory);
 
 // Ensure the log directory exists
 if (!fs.existsSync(logDirectory)) {

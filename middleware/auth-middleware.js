@@ -18,7 +18,6 @@ async function checkAuthentication(req, res, next) {
         profileImageUrl: tokenUser.profileImageUrl,
     });
     req.user = returnedUser;
-    //console.log(req.user);
     const user = destructureUser(returnedUser);
     if (req.originalUrl === '/') 
         return res.render('home', {user});
