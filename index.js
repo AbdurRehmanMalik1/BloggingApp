@@ -38,13 +38,11 @@ app.use('/user',userRouter);
 app.use('/add-blog',restrictTo(['USER','ADMIN']),addBlogRouter);
 app.use('/blog',blogRouter);
 app.get('/admin', restrictTo(['ADMIN']), (req, res) => {
-    res.send('<p>cooool</p>');
+    res.send('<p>cool</p>');
 });
 
 app.get('/', (req, res) => {
     const user = destructureUser(req.user);
-    console.log(user);
-    //console.log(`This user's full name = ${fullName}`);
     return res.render('home', { user });
 });
 
@@ -54,7 +52,7 @@ app.listen(PORT,()=> console.log(`Server Started at PORT ${PORT} `));
 
 
 process.on('SIGTERM', () => {
-    server.close(() => {
+    app.close(() => {
         console.log('Process terminated');
     });
 })
